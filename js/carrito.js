@@ -23,12 +23,13 @@ function agregarProducto(producto, index) {
     <td><img src = "${producto.imagen}" width ="70px"></td>
     <td>${producto.nombre}</td>
     <td>${producto.precio}</td>
-    <td> <span
-        onclick="eliminarProducto(${contador})"
-        class="btn btn-danger">
-        X
-        </span>
-    </td>`;
+	<td> <span
+		onclick="eliminarProducto('${contador}')"
+		class="btn btn-danger">
+		X
+		</span>
+	</td>
+	`;
 	listadoCarrito.appendChild(fila);
 }
 
