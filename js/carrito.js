@@ -1,6 +1,6 @@
 let btnProductos = document.querySelectorAll(".btn-product");
 let contadorCarrito = document.querySelector(".contar-pro");
-let listadoCarrito = document.querySelector(".list-cart");
+let listadoCarrito = document.querySelector(".list-cart tbody");
 let contador = 0;
 
 document.addEventListener("DOMContentLoaded", cargarLocalStorage);
@@ -38,7 +38,8 @@ function infoProducto(pos) {
 	let infoPro = {
 		nombre: producto.querySelector("h3").textContent,
 		imagen: producto.querySelector("img").src,
-		precio: producto.querySelector("h5").textContent.trim(),
+		precio: producto.querySelector("h5").textContent.trim().split("$")[1],
+		cantidad: 1,
 	};
 	agregarProducto(infoPro);
 	guardarLocalStorage(infoPro);
@@ -89,3 +90,7 @@ function cargarLocalStorage() {
 		agregarProducto(producto, index);
 	});
 }
+
+contadorCarrito.parentElement.addEventListener("click", () => {
+	listadoCarrito.parentElement.classList.toggle("ocultar");
+});
