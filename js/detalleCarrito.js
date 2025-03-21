@@ -17,12 +17,16 @@ function cargarProductos() {
 		todosProductos = Object.values(productoExistente);
 	}
 
-	todosProductos.forEach((producto) => {
-		let fila = document.createElement("tr");
-		fila.innerHTML = `
+	//Comprobar si hay productos en el carrito
+
+	if (todosProductos.length != 0) {
+		tablaCarrito.innerHTML = "";
+		todosProductos.forEach((producto, i) => {
+			let fila = document.createElement("tr");
+			fila.innerHTML = `
             <td class="d-flex justify-content-around align-items-center">
 				<span
-				onclick="eliminarProducto('')" 
+				onclick="eliminarProducto()" 
 				class="btn btn-danger">
 				X
 				</span>
@@ -34,11 +38,13 @@ function cargarProductos() {
 			</td>
             <td>
 				<div class="quantity quantity-wrap">
-					<div class="decremento">
+					<div class="decrement" onclick="actualizarCantidad(${i}, -1)">
 						<i class="fa-solid fa-minus"></i>
 					</div>
-					<input class="number" type="number" name="quantity" value="1" min="1" max="10" size="1" readonly>
-					<div class="incremento">
+					<input class="text" type="number" name="quantity" value="${
+						producto.cantidad || 1
+					}" size="1" readonly>
+					<div class="increment" onclick="actualizarCantidad(${i}, 1)">
 						<i class="fa-solid fa-plus" ></i>
 					</div>
 				</div>
@@ -47,6 +53,35 @@ function cargarProductos() {
 				${producto.precio}
 			</td>
         `;
+			tablaCarrito.appendChild(fila);
+		});
+	} else {
+		let fila = document.createElement("tr");
+		fila.innerHTML = `
+		<td colspan="4">No hay productos en el carrito</td>
+		`;
 		tablaCarrito.appendChild(fila);
-	});
+	}
 }
+
+//Actutialza catidad producto
+
+function actualizarCantidad(pos, cambio) {
+	let todosProductos = [];
+	let productoExistente = JSON.parse(localStorage.getItem("pro-carrito"));
+	if (productoExistente != null) {
+		todosProductos = Object.values(productoExistente);
+	}
+	if (todosProductos[pos]) {
+		todosProductos[pos].cantidad = (todosProductos[pos].cantidad || 1) + cambio;
+		// Asegurar que la cantidad no sea menor a 1
+		if (todosProductos[pos].cantidad < 1) {
+			todosProductos[pos].cantidad = 1;
+		}
+		// Actualizar el localStorage
+		localStorage.setItem("pro-carrito", JSON.stringify(todosProductos));
+		// Volver a cargar los productos en la interfaz
+		cargarProductos();
+	}
+}
+
