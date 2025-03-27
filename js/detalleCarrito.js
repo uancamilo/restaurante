@@ -1,6 +1,7 @@
 //Variables globales
 
 let tablaCarrito = document.querySelector(".cart-table tbody");
+let resumenSubTotal = document.querySelector(".res-sub-total");
 
 //Evento para cargar productos del localstorage
 
@@ -41,7 +42,7 @@ function cargarProductos() {
 					<div class="decrement" onclick="actualizarCantidad(${i}, -1)">
 						<i class="fa-solid fa-minus"></i>
 					</div>
-					<input class="text" type="number" name="quantity" value="${
+					<input class="number" type="text" name="quantity" value="${
 						producto.cantidad || 1
 					}" size="1" readonly>
 					<div class="increment" onclick="actualizarCantidad(${i}, 1)">
@@ -62,6 +63,7 @@ function cargarProductos() {
 		`;
 		tablaCarrito.appendChild(fila);
 	}
+	resumenCompra();
 }
 
 //Actutialza catidad producto
@@ -99,4 +101,19 @@ function eliminarProducto(pos) {
 	todosProductos.splice(pos, 1);
 	localStorage.setItem("pro-carrito", JSON.stringify(todosProductos));
 	cargarProductos();
+}
+
+function resumenCompra() {
+	let todosProductos = JSON.parse(localStorage.getItem("pro-carrito")) || [];
+	let subtotal = 0;
+	todosProductos.forEach((producto) => {
+		subtotal += producto.precio * producto.cantidad;
+	});
+
+	//calcular descuento del 10% si la compra es mayor a 1000
+
+	let descuento = subtotal > 100.000 ? subtotal * 0.1 : 0;
+	
+
+	resumenSubTotal.textContent = `$${subtotal.toFixed(3)}`;
 }
