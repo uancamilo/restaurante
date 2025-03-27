@@ -5,7 +5,9 @@ let resumenSubTotal = document.querySelector(".res-sub-total");
 let resumenDescuento = document.querySelector(".promo");
 let resumenTotal = document.querySelector(".total");
 let destino = document.querySelector(".destino");
-resumenDomilicio = document.querySelector(".valor-domi");
+let resumenDomilicio = document.querySelector(".valor-domi");
+let btnFinalizarCompra = document.querySelector(".btn-resumen");
+
 //Evento para cargar productos del localstorage
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -147,7 +149,6 @@ function resumenCompra() {
 	let descuento = subtotal > 100.0 ? subtotal * 0.1 : 0;
 	let totalPagar = subtotal - descuento + domicilio;
 
-
 	resumenSubTotal.textContent = `$${subtotal.toFixed(3)}`;
 	resumenDescuento.textContent = `$${descuento.toFixed(3)}`;
 	resumenTotal.textContent = `$${totalPagar.toFixed(3)}`;
@@ -156,4 +157,19 @@ function resumenCompra() {
 
 destino.addEventListener("change", () => {
 	resumenCompra();
+});
+
+//Evento para finalizar compra
+btnFinalizarCompra.addEventListener("click", () => {
+	let todosProductos = JSON.parse(localStorage.getItem("pro-carrito")) || [];
+	let resumen = {
+		...todosProductos,
+	};
+	resumen.subtotal = resumenSubTotal.textContent;
+	resumen.descuento = resumenDescuento.textContent;
+	resumen.destino = destino.value;
+	resumen.domicilio = resumenDomilicio.textContent;
+	resumen.totalPagar = resumenTotal.textContent;
+	localStorage.setItem("pro-resumen", JSON.stringify(resumen));
+	window.location.href = "compra.html";
 });
