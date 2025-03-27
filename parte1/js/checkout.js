@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function guardarDatosFormulario() {
-	const datos = {
+	const datosFormulario = {
 		nombres: document.getElementById("nombres-input").value.trim(),
 		apellidos: document.getElementById("apellidos-input").value.trim(),
 		email: document.getElementById("email-input").value.trim(),
@@ -79,18 +79,28 @@ function guardarDatosFormulario() {
 
 	// Validar que los campos obligatorios no estén vacíos
 	if (
-		!datos.nombres ||
-		!datos.apellidos ||
-		!datos.email ||
-		!datos.celular ||
-		!datos.direccion ||
-		!datos.metodoPago
+		!datosFormulario.nombres ||
+		!datosFormulario.apellidos ||
+		!datosFormulario.email ||
+		!datosFormulario.celular ||
+		!datosFormulario.direccion ||
+		!datosFormulario.metodoPago
 	) {
 		alert("Por favor, completa todos los campos obligatorios.");
 		return;
 	}
+	const datosCompra = {
+		formulario: datosFormulario,
+		carrito: {
+			domicilio: carrito.domicilio,
+			destino: carrito.destino,
+			descuento: carrito.descuento,
+			subtotal: carrito.subtotal,
+			totalPagar: carrito.totalPagar,
+		},
+	};
 
-	localStorage.setItem("formularioDatos", JSON.stringify(datos));
+	localStorage.setItem("formularioDatos", JSON.stringify(datosCompra));
 	window.location.href = "thankyou.html";
 }
 
