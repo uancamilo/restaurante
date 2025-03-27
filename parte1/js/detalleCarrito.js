@@ -171,5 +171,5 @@ btnFinalizarCompra.addEventListener("click", () => {
 	resumen.domicilio = resumenDomilicio.textContent;
 	resumen.totalPagar = resumenTotal.textContent;
 	localStorage.setItem("pro-resumen", JSON.stringify(resumen));
-	window.location.href = "compra.html";
+	window.location.href = "checkout.html";
 });

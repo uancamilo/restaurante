@@ -119,7 +119,7 @@
 		<div class="page-content">
 			<section class="pt-80 pb-40">
 				<div class="container-fluid">
-					<form>
+					<form id="formulario">
 						<div class="row">
 							<div class="col-lg-8 mb-64 mb-lg-0 px-5">
 								<h5 class="mb-32">DATOS DE ENTREGA</h5>
@@ -133,6 +133,7 @@
 												name="f-name"
 												autocomplete="off"
 												placeholder="Mr. John"
+												required
 											/>
 											<div
 												data-lastpass-icon-root=""
@@ -154,6 +155,7 @@
 												name="l-name"
 												autocomplete="off"
 												placeholder="Deo"
+												required
 											/>
 										</div>
 									</div>
@@ -178,6 +180,7 @@
 												name="phone"
 												autocomplete="off"
 												placeholder="12345679"
+												required
 											/>
 										</div>
 									</div>
@@ -190,18 +193,20 @@
 												name="address"
 												autocomplete="off"
 												placeholder="Your Address"
+												required
 											/>
 										</div>
 									</div>
 									<div class="col-12">
 										<div class="form-group mb-32">
-											<label>Direccion (optional)</label>
+											<label>Direccion </label>
 											<input
 												id="direccion-2-input"
 												type="text"
 												name="address2"
 												autocomplete="off"
 												placeholder="Apartment, Suite, Unit etc."
+												required
 											/>
 										</div>
 									</div>
@@ -301,7 +306,7 @@
 											</li>
 										</ul>
 									</div>
-									<a href="thankyou.html" class="btn-checkout cus-btn dark w-100">
+									<button type="submit" class="btn-checkout cus-btn dark w-100">
 										<span class="icon-wrapper">
 											<svg
 												class="icon-svg icon-svg-copy"
@@ -321,7 +326,7 @@
 											</svg>
 										</span>
 										Pagar orden
-									</a>
+									</button>
 								</div>
 							</div>
 						</div>
