@@ -2,7 +2,10 @@
 
 let tablaCarrito = document.querySelector(".cart-table tbody");
 let resumenSubTotal = document.querySelector(".res-sub-total");
-
+let resumenDescuento = document.querySelector(".promo");
+let resumenTotal = document.querySelector(".total");
+let destino = document.querySelector(".destino");
+resumenDomilicio = document.querySelector(".valor-domi");
 //Evento para cargar productos del localstorage
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -110,10 +113,47 @@ function resumenCompra() {
 		subtotal += producto.precio * producto.cantidad;
 	});
 
-	//calcular descuento del 10% si la compra es mayor a 1000
+	// Calcular el costo de envío
+	let domicilio = 0;
+	switch (destino.value) {
+		case "Medellin":
+		default:
+			domicilio;
+			break;
+		case "Bello":
+			domicilio += 10.0;
+			break;
+		case "Itagui":
+			domicilio += 15.0;
+			break;
+		case "Envigado":
+			domicilio += 15.0;
+			break;
+		case "Sabaneta":
+			domicilio += 15.0;
+			break;
+		case "La Estrella":
+			domicilio += 20.0;
+			break;
+		case "Caldas":
+			domicilio += 20.0;
+			break;
+		case "Copacabana":
+			domicilio += 20.0;
+			break;
+	}
 
-	let descuento = subtotal > 100.000 ? subtotal * 0.1 : 0;
-	
+	// Calcular descuento del 10% si la compra es mayor a 1000
+	let descuento = subtotal > 100.0 ? subtotal * 0.1 : 0;
+	let totalPagar = subtotal - descuento + domicilio;
+
 
 	resumenSubTotal.textContent = `$${subtotal.toFixed(3)}`;
+	resumenDescuento.textContent = `$${descuento.toFixed(3)}`;
+	resumenTotal.textContent = `$${totalPagar.toFixed(3)}`;
+	resumenDomilicio.textContent = `$${domicilio.toFixed(3)}`;
 }
+
+destino.addEventListener("change", () => {
+	resumenCompra();
+});
